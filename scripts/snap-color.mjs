@@ -1,0 +1,1 @@
+import { chromium } from 'playwright'; (async () => { const browser = await chromium.launch(); const page = await browser.newPage({viewport: {width: 800, height: 600}}); await page.goto('http://localhost:8081'); await page.waitForTimeout(3000); await page.screenshot({path: 'snap.png'}); await browser.close(); })();

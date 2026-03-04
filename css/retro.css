@@ -1,0 +1,621 @@
+/*
+ * RETRO.CSS — Gauss-Riemann University Web Page Styles
+ *
+ * Period-correct styling for 1997 academic web pages.
+ * Shell Bingby was hand-coding framesets before you were born.
+ *
+ * Zone 7 — The University Web Pages
+ * Josh's Math Fun World
+ */
+
+
+/* ===================================================================
+   OVERLAY CONTAINER
+   =================================================================== */
+
+.retro-overlay {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    background: #C0C0C0;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: #000000;
+    /* display is toggled by JS — starts as none */
+}
+
+
+/* ===================================================================
+   BROWSER CHROME
+   =================================================================== */
+
+.browser-chrome {
+    flex-shrink: 0;
+    background: #C0C0C0;
+    border-bottom: 2px outset #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    user-select: none;
+}
+
+/* --- Title Bar --- */
+
+.browser-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 3px 4px 3px 8px;
+}
+
+.browser-title-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.browser-close-btn {
+    background: #C0C0C0;
+    border: 2px outset #FFFFFF;
+    padding: 0 6px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+    color: #000000;
+    margin-left: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+.browser-close-btn:hover {
+    background: #D4D0C8;
+}
+
+.browser-close-btn:active {
+    border-style: inset;
+}
+
+/* --- Navigation Row --- */
+
+.browser-nav-row {
+    display: flex;
+    gap: 2px;
+    padding: 3px 4px;
+    border-bottom: 1px solid #808080;
+}
+
+.browser-nav-btn {
+    background: #C0C0C0;
+    border: 2px outset #FFFFFF;
+    padding: 2px 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    color: #000000;
+    white-space: nowrap;
+}
+
+.browser-nav-btn:hover {
+    background: #D4D0C8;
+}
+
+.browser-nav-btn:active {
+    border-style: inset;
+}
+
+.browser-nav-btn:disabled {
+    color: #808080;
+    cursor: default;
+}
+
+.browser-nav-btn:disabled:hover {
+    background: #C0C0C0;
+}
+
+/* --- Address Bar --- */
+
+.browser-address-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px 4px;
+}
+
+.browser-address-label {
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.browser-url-bar {
+    flex: 1;
+    background: #FFFFFF;
+    border: 2px inset #808080;
+    padding: 2px 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ===================================================================
+   PAGE CONTENT AREA
+   =================================================================== */
+
+.page-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #FFFFFF;
+    padding: 0;
+}
+
+/* Retro scrollbar styling (Chromium / WebKit) */
+.page-content::-webkit-scrollbar {
+    width: 16px;
+}
+
+.page-content::-webkit-scrollbar-track {
+    background: #C0C0C0;
+    border-left: 1px solid #808080;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+    background: #C0C0C0;
+    border: 2px outset #FFFFFF;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+    background: #D4D0C8;
+}
+
+.page-content::-webkit-scrollbar-button {
+    display: block;
+    height: 16px;
+    background: #C0C0C0;
+    border: 2px outset #FFFFFF;
+}
+
+
+/* ===================================================================
+   RETRO PAGE — ACADEMIC STYLES
+   =================================================================== */
+
+.retro-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 16px 24px 40px;
+    font-family: 'Times New Roman', 'Times', serif;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #000000;
+    background: #FFFFFF;
+}
+
+/* --- Headings --- */
+
+.retro-page h1 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000080;
+    margin: 12px 0 8px;
+}
+
+.retro-page h2 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000080;
+    margin: 12px 0 6px;
+}
+
+.retro-page h3 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin: 10px 0 4px;
+}
+
+/* --- Links (authentic 1997) --- */
+
+.retro-page a,
+.retro-page [data-href] {
+    color: #0000EE;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.retro-page a:visited {
+    color: #551A8B;
+}
+
+/* No hover effect — period correct */
+
+.retro-page a:active,
+.retro-page [data-href]:active {
+    color: #FF0000;
+}
+
+/* --- Horizontal Rule --- */
+
+.retro-page hr {
+    border: none;
+    border-top: 2px inset #808080;
+    margin: 12px 0;
+}
+
+/* --- Paragraphs and Text --- */
+
+.retro-page p {
+    margin: 8px 0;
+}
+
+.retro-page b,
+.retro-page strong {
+    font-weight: bold;
+}
+
+.retro-page i,
+.retro-page em {
+    font-style: italic;
+}
+
+.retro-page code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* --- Lists --- */
+
+.retro-page ul {
+    padding-left: 28px;
+    margin: 6px 0;
+    list-style-type: disc;
+}
+
+.retro-page ol {
+    padding-left: 28px;
+    margin: 6px 0;
+}
+
+.retro-page li {
+    margin: 3px 0;
+}
+
+/* --- Images (faculty photos, etc.) --- */
+
+.retro-page img {
+    border: 1px solid #000000;
+    max-width: 100%;
+}
+
+/* --- Tables --- */
+
+.retro-page table {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.retro-page th,
+.retro-page td {
+    border: 1px solid #000000;
+    padding: 4px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.retro-page th {
+    background: #C0C0C0;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.retro-page td {
+    background: #FFFFFF;
+}
+
+/* --- Pre / Code Blocks --- */
+
+.retro-page pre {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: #F0F0F0;
+    border: 1px solid #808080;
+    padding: 8px 10px;
+    margin: 8px 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* --- Blockquotes --- */
+
+.retro-page blockquote {
+    margin: 8px 0 8px 20px;
+    padding-left: 12px;
+    border-left: 3px solid #808080;
+    color: #333333;
+    font-style: italic;
+}
+
+
+/* ===================================================================
+   SPECIAL ELEMENTS — 1997 FLAVOUR
+   =================================================================== */
+
+/* --- Navy Header Banner (characteristic 90s academic site nav) --- */
+
+.retro-nav-banner {
+    background: #000080;
+    color: #FFFFFF;
+    padding: 6px 12px;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 13px;
+    margin: 0 0 12px;
+    text-align: center;
+}
+
+.retro-nav-banner a,
+.retro-nav-banner [data-href] {
+    color: #FFFF00;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 6px;
+}
+
+.retro-nav-banner [data-href]:active {
+    color: #FF8800;
+}
+
+/* --- Java Applet Placeholder --- */
+
+.java-applet {
+    border: 2px inset #808080;
+    background: #C0C0C0;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    margin: 10px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: #333333;
+    text-align: center;
+}
+
+/* --- Under Construction --- */
+
+.under-construction {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    margin: 16px 0;
+    padding: 12px;
+    color: #FF0000;
+}
+
+.under-construction::before {
+    content: '🚧 ';
+}
+
+.under-construction::after {
+    content: ' 🚧';
+}
+
+/* --- Hit Counter --- */
+
+.hit-counter {
+    font-family: 'Courier New', monospace;
+    background: #000000;
+    color: #00FF00;
+    padding: 2px 6px;
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border: 1px inset #808080;
+}
+
+/* --- Webring Box --- */
+
+.webring-box {
+    border: 3px double #000080;
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 10px 16px;
+    text-align: center;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 12px;
+    background: #F8F8F0;
+}
+
+.webring-box b {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: #000080;
+}
+
+/* --- "New!" / "Updated!" Blinky Badges --- */
+
+.retro-new {
+    color: #FF0000;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: 'Arial', sans-serif;
+    animation: retro-blink 1s step-end infinite;
+    margin-left: 4px;
+}
+
+@keyframes retro-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* --- Marquee-style Scrolling Text --- */
+
+.retro-marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    background: #000080;
+    color: #FFFF00;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    padding: 3px 0;
+}
+
+.retro-marquee span {
+    display: inline-block;
+    animation: marquee-scroll 12s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* --- Faculty Photo Frame --- */
+
+.faculty-photo {
+    border: 1px solid #000000;
+    padding: 2px;
+    background: #FFFFFF;
+    display: inline-block;
+    margin: 4px 8px 4px 0;
+    vertical-align: top;
+}
+
+.faculty-photo img {
+    display: block;
+    border: none;
+    max-width: 150px;
+}
+
+/* --- Guestbook Entry --- */
+
+.guestbook-entry {
+    border-bottom: 1px dashed #808080;
+    padding: 8px 0;
+    margin: 4px 0;
+}
+
+.guestbook-entry .gb-name {
+    font-weight: bold;
+    color: #000080;
+}
+
+.guestbook-entry .gb-date {
+    font-size: 11px;
+    color: #808080;
+    margin-left: 8px;
+}
+
+.guestbook-entry .gb-message {
+    margin-top: 2px;
+}
+
+/* --- Guestbook Form --- */
+
+.guestbook-form label {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.guestbook-form input[type="text"],
+.guestbook-form textarea {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    border: 2px inset #808080;
+    padding: 2px 4px;
+    width: 100%;
+    max-width: 350px;
+    box-sizing: border-box;
+}
+
+.guestbook-form textarea {
+    height: 60px;
+    resize: vertical;
+}
+
+.guestbook-form button {
+    margin-top: 8px;
+    background: #C0C0C0;
+    border: 2px outset #FFFFFF;
+    padding: 3px 14px;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.guestbook-form button:active {
+    border-style: inset;
+}
+
+/* --- Background Variants --- */
+
+.retro-page.bg-gray {
+    background: #F0F0F0;
+}
+
+.retro-page.bg-ivory {
+    background: #FFFFF0;
+}
+
+/* --- Centered Block (for logos, construction GIFs, etc.) --- */
+
+.retro-center {
+    text-align: center;
+    margin: 12px 0;
+}
+
+/* --- Thin Divider Line --- */
+
+.retro-divider {
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #000080, transparent);
+    margin: 12px auto;
+    border: none;
+}
+
+/* --- Email / Mailto Link Style --- */
+
+.retro-email {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #0000EE;
+    text-decoration: underline;
+}
+
+/* --- "Last Updated" Footer --- */
+
+.retro-footer {
+    margin-top: 24px;
+    padding-top: 8px;
+    border-top: 1px solid #808080;
+    font-size: 11px;
+    font-family: 'Arial', sans-serif;
+    color: #808080;
+    text-align: center;
+}

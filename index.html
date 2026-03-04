@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Shell Bingby, 1986">
+    <meta name="original-author" content="M. Aldric, 1985">
+    <meta name="description" content="Build 1597. The field remembers.">
+    <meta name="build" content="1597.4.15">
+    <meta name="build-0" content="0.0.0 — UNRELEASED — STATUS: OPERATOR MISSING">
+    <title>Josh's Math Fun World</title>
+    <!-- 51d32N 9d56E -->
+    <!-- build 0 | operator 0 | 1597 -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/retro.css">
+    <!-- the stones were here before the code -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- M.A. 1987 -->
+    <div id="loading">Loading Josh's Math Fun World...</div>
+    <div id="hud-interact" class="hud-interact"></div>
+    <div id="hud-zone" class="hud-zone"></div>
+    <div id="hud-examine" class="hud-examine"></div>
+    <div id="hud-hint" class="hud-hint"></div>
+    <!-- Collection HUD -->
+    <div id="hud-score" class="hud-score"></div>
+    <div id="hud-discovery" class="hud-discovery"></div>
+    <div id="hud-zone-progress" class="hud-zone-progress"></div>
+    <div id="sprint-hint-overlay">Hold [SHIFT] to sprint!</div>
+    <div id="tutorial-overlay">
+        <div class="tutorial-content">
+            <h2 class="tutorial-title">JOSH'S MATH FUN WORLD</h2>
+            <div class="tutorial-controls">
+                <p>WASD &mdash; Move &nbsp;|&nbsp; Mouse &mdash; Look Around</p>
+                <p>Space &mdash; Jump &nbsp;|&nbsp; Shift &mdash; Sprint</p>
+                <p>E &mdash; Interact with glowing objects</p>
+                <p>Esc &mdash; Settings</p>
+            </div>
+            <p class="tutorial-hint">Four glowing portals surround you. Walk through one to enter a math zone.</p>
+            <p class="tutorial-begin">Click anywhere to begin</p>
+        </div>
+    </div>
+    <div id="click-to-play">
+        <p class="click-to-play-text">Click to Play</p>
+    </div>
+    <div id="game-iframe-overlay" style="display:none; position:absolute; top:5%; left:5%; width:90%; height:90%; background:rgba(0,0,0,0.8); z-index:9999; border-radius:10px; flex-direction:column;">
+        <button id="close-game-iframe" style="align-self:flex-end; margin:10px; padding:10px 20px; font-size:16px; cursor:pointer; background:#ff4444; color:white; border:none; border-radius:5px; font-weight:bold;">Close Game</button>
+        <iframe id="game-iframe-content" src="" style="width:100%; height:100%; border:none; border-radius:0 0 10px 10px;"></iframe>
+    </div>
+    <!-- e^(i*pi) + 1 = 0 -->
+    <!-- the fourth face -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

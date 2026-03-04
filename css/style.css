@@ -1,0 +1,546 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a2e;
+    z-index: 10;
+    font-family: 'Courier New', monospace;
+    color: #4a8c3f;
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+#loading.hidden {
+    display: none;
+}
+
+#sprint-hint-overlay {
+    display: none;
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffaa00;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0px 4px 8px rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 150;
+    letter-spacing: 2px;
+    animation: sprintPulse 1s infinite alternate;
+}
+
+@keyframes sprintPulse {
+    from { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
+    to { opacity: 1; transform: translateX(-50%) scale(1.05); }
+}
+
+#tutorial-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    color: #33ff66;
+    cursor: pointer;
+}
+
+.tutorial-content {
+    text-align: center;
+    font-size: 20px;
+    line-height: 2.2;
+    letter-spacing: 2px;
+}
+
+.tutorial-title {
+    font-size: 28px;
+    color: #33ff66;
+    margin-bottom: 24px;
+    letter-spacing: 6px;
+    text-shadow: 0 0 12px rgba(51, 255, 102, 0.6);
+}
+
+.tutorial-controls {
+    font-size: 16px;
+    line-height: 2;
+    color: #88ffaa;
+}
+
+.tutorial-hint {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #aaddbb;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.tutorial-begin {
+    margin-top: 32px;
+    font-size: 16px;
+    color: #88ffaa;
+    animation: tutorial-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes tutorial-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ── HUD Overlay ─────────────────────────────────────────────────────── */
+
+.hud-interact {
+    position: fixed;
+    bottom: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    color: #00FF41;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 8px 20px;
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    image-rendering: pixelated;
+    text-shadow: 0 0 6px rgba(0, 255, 65, 0.5);
+}
+
+.hud-interact.visible {
+    opacity: 1;
+}
+
+.hud-zone {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #00FF41;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 6px 16px;
+    border: 1px solid rgba(0, 255, 65, 0.15);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    image-rendering: pixelated;
+    text-shadow: 0 0 4px rgba(0, 255, 65, 0.4);
+}
+
+.hud-zone.visible {
+    opacity: 1;
+}
+
+/* ── Examine Popup ────────────────────────────────────────────────────── */
+
+.hud-examine {
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #ffdd44;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 221, 68, 0.3);
+    letter-spacing: 1px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    image-rendering: pixelated;
+    text-shadow: 0 0 4px rgba(255, 221, 68, 0.4);
+    text-align: center;
+    max-width: 400px;
+}
+
+.hud-examine.visible {
+    opacity: 1;
+}
+
+/* ── Contextual Hint ──────────────────────────────────────────────────── */
+
+.hud-hint {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: rgba(0, 255, 65, 0.6);
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    image-rendering: pixelated;
+    letter-spacing: 1px;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+.hud-hint.visible {
+    opacity: 1;
+}
+
+/* ── Click-to-Play Overlay ────────────────────────────────────────────── */
+
+#click-to-play {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.click-to-play-text {
+    font-family: 'Courier New', monospace;
+    font-size: 28px;
+    color: #33ff66;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(51, 255, 102, 0.6);
+    animation: tutorial-pulse 1.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/*  TITLE SCREEN — toy-block logo, floating math, pure joy               */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+#title-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 45%, #2d2d5e 0%, #1a1a2e 55%, #0f0f1a 100%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+#title-screen.title-exit {
+    opacity: 0;
+    transform: scale(1.08);
+    pointer-events: none;
+}
+
+/* ── Logo container ──────────────────────────────────────────────────── */
+
+.title-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(8px, 1.5vmin, 18px);
+    z-index: 2;
+}
+
+.title-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 0.7vmin, 10px);
+}
+
+/* ── Individual letter block ─────────────────────────────────────────── */
+
+.title-block {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(42px, 8.5vmin, 84px);
+    height: clamp(42px, 8.5vmin, 84px);
+    border-radius: clamp(6px, 1.2vmin, 14px);
+    font-size: clamp(26px, 5.2vmin, 52px);
+    font-weight: 900;
+    font-family: 'Arial Black', 'Gadget', 'Impact', sans-serif;
+    color: #fff;
+    text-shadow:
+        1px 2px 0 rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(255, 255, 255, 0.08);
+    transform: rotate(var(--rot, 0deg));
+    border: clamp(2px, 0.4vmin, 4px) solid rgba(0, 0, 0, 0.08);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-left-color: rgba(255, 255, 255, 0.10);
+    box-shadow:
+        3px 4px 0 rgba(0, 0, 0, 0.22),
+        4px 8px 16px rgba(0, 0, 0, 0.35),
+        inset 0 2px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.12);
+    user-select: none;
+    animation: blockDrop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: var(--delay, 0s);
+}
+
+/* Apostrophe gets a smaller block */
+.title-block.apostrophe {
+    width: clamp(22px, 3.8vmin, 38px);
+    height: clamp(30px, 5.5vmin, 55px);
+    font-size: clamp(22px, 4.2vmin, 42px);
+    align-self: flex-start;
+    margin-top: clamp(2px, 0.4vmin, 5px);
+}
+
+/* Spacer between words */
+.title-spacer {
+    width: clamp(16px, 3.2vmin, 32px);
+}
+
+/* ── Block drop-in animation ─────────────────────────────────────────── */
+
+@keyframes blockDrop {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rot, 0deg)) translateY(-80px) scale(0.4);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot, 0deg)) translateY(0) scale(1);
+    }
+}
+
+/* ── Controls hint ───────────────────────────────────────────────────── */
+
+.title-controls {
+    margin-top: clamp(20px, 3.5vmin, 40px);
+    font-family: 'Courier New', monospace;
+    font-size: clamp(10px, 1.6vmin, 15px);
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1.5px;
+    text-align: center;
+    z-index: 2;
+    animation: fadeIn 0.6s ease 1.4s both;
+}
+
+/* ── "Click to Enter" subtitle ───────────────────────────────────────── */
+
+.title-subtitle {
+    margin-top: clamp(16px, 2.8vmin, 32px);
+    font-family: 'Courier New', monospace;
+    font-size: clamp(14px, 2.4vmin, 22px);
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    z-index: 2;
+    animation: fadeIn 0.5s ease 1.6s both, titlePulse 2.5s ease-in-out 2.1s infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titlePulse {
+    0%, 100% { opacity: 0.45; }
+    50%      { opacity: 1; }
+}
+
+/* ── Floating math background ────────────────────────────────────────── */
+
+.title-math-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.title-math-symbol {
+    position: absolute;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: rgba(255, 255, 255, 0.10);
+    animation: mathFloat linear infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes mathFloat {
+    0%, 100% { transform: translateY(0)     rotate(0deg); }
+    25%      { transform: translateY(-12px)  rotate(5deg); }
+    50%      { transform: translateY(-4px)   rotate(-3deg); }
+    75%      { transform: translateY(-18px)  rotate(3deg); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   COLLECTION HUD — Collectathon score, discovery popups, zone progress
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Persistent Score Counter (top-right) ─────────────────────────── */
+
+.hud-score {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #FFD700;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    letter-spacing: 2px;
+    pointer-events: none;
+    z-index: 100;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    image-rendering: pixelated;
+}
+
+.hud-score.bounce {
+    animation: score-bounce 0.4s ease;
+}
+
+@keyframes score-bounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.35); color: #FFFFFF; }
+    60%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* ── Discovery Popup (center-bottom) ──────────────────────────────── */
+
+.hud-discovery {
+    position: fixed;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    image-rendering: pixelated;
+}
+
+.hud-discovery.visible {
+    opacity: 1;
+    animation: discovery-pop 0.5s ease;
+}
+
+.hud-discovery .discovery-label {
+    font-size: 11px;
+    color: #FFD700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.hud-discovery .complete-label {
+    font-size: 14px;
+    color: #00FF41;
+    text-shadow: 0 0 12px rgba(0, 255, 65, 0.8);
+}
+
+.hud-discovery .discovery-name {
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top: 4px;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 10px;
+}
+
+.hud-discovery .discovery-plus {
+    font-size: 22px;
+    color: #FFD700;
+    font-weight: bold;
+    margin-top: 2px;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes discovery-pop {
+    0%   { transform: translateX(-50%) scale(0.5) translateY(20px); opacity: 0; }
+    40%  { transform: translateX(-50%) scale(1.15) translateY(-5px); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1) translateY(0); opacity: 1; }
+}
+
+/* ── Zone Progress (under zone name) ──────────────────────────────── */
+
+.hud-zone-progress {
+    position: fixed;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #FFD700;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    letter-spacing: 2px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+    image-rendering: pixelated;
+}
+
+.hud-zone-progress.visible {
+    opacity: 1;
+}
+
+.hud-zone-progress.complete {
+    color: #00FF41;
+    border-color: rgba(0, 255, 65, 0.3);
+    text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+}
+
+
+.visible { display: block !important; opacity: 1 !important; }
