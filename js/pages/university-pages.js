@@ -279,10 +279,12 @@ function buildFacultyDirectory() {
         table.appendChild(row);
     });
 
-    // Aldric — greyed out, no link, barely visible
+    // Aldric — greyed out, subtle but clickable
     const aldricRow = el('tr', { style: 'color: #C0C0C0;' });
     const aldricName = el('td', { style: 'padding: 6px; color: #C0C0C0; font-style: italic;' });
-    aldricName.textContent = 'M. Aldric';
+    const aldricLink = navLink('M. Aldric', '/math/~secret/', 'color: #C0C0C0; text-decoration: none;');
+    aldricLink.title = '???';
+    aldricName.appendChild(aldricLink);
     aldricRow.appendChild(aldricName);
     const aldricArea = el('td', { style: 'padding: 6px; color: #C0C0C0;' });
     aldricArea.textContent = 'Field Theory (?)';
